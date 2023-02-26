@@ -6,18 +6,18 @@ BTHome Kaitai Struct
     BTHome format description in Kaitai Struct
 
 
-This is a description of the `BTHome <https://bthome.io/>`_ format for broadcasting sensor data and button presses over Bluetooth Low Energy. The description uses `Kaitai Struct <https://kaitai.io/>`_, a declarative language used to describe various binary data structures. As a result, the format description can be compiled into source files of one of 11 supported programming languages to create a BTHome parser: C++/STL, C#, Go, Java, JavaScript, Lua, Nim, Perl, PHP, Python and Ruby.
+This is a description of the `BTHome <https://bthome.io/>`_ format for broadcasting sensor data and button presses over Bluetooth Low Energy. The description uses `Kaitai Struct <https://kaitai.io/>`_, a declarative language to describe various binary data structures. As a result, the format description can be compiled into source files of one of 11 supported programming languages to create a BTHome parser: C++/STL, C#, Go, Java, JavaScript, Lua, Nim, Perl, PHP, Python and Ruby.
 
 Format description
 ==================
 
 The format description in Kaitai Struct is listed in three files:
 
-* advertising\_data.ksy: the raw advertising data, including advertising data elements for flags, local name and service data
-* bthome\_v2.ksy: the service data for BTHome's UUID 0xFCD2
-* bthome\_v2\_unencrypted.ksy: unencrypted BTHome v2 measurements
+* `advertising\_data.ksy <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/advertising_data.ksy>`_: the raw advertising data, including advertising data elements for flags, local name and service data
+* `bthome\_v2.ksy <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/bthome_v2.ksy>`_: the service data for BTHome's UUID 0xFCD2
+* `bthome\_v2\_unencrypted.ksy <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/bthome_v2_unencrypted.ksy>`_: unencrypted BTHome v2 measurements
 
-In most applications you should use bthome\_v2.ksy. For example, the files in the directory data contain service data that can be decoded with this Kaitai Struct file. The Python example script also uses a Python module generated from this file.
+In most applications you should use bthome\_v2.ksy. For example, the files in the `data <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/tree/main/data>`_ directory contain service data that can be decoded with this Kaitai Struct file. The `Python example script <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/examples/python/detect_bthome_v2.py>`_ also uses a `Python package <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/tree/main/examples/python/kaitai>`_ generated from this file.
 
 Limitations
 ===========
@@ -106,7 +106,7 @@ This continuously scans for unencrypted BTHome v2 advertisements and decodes the
 Testing the format description
 ==============================
 
-There's a Python test script that tests the generated Python parser on some data files with service data. Those data files contain service data from BTHome advertisements used in `bthome-ble's tests <https://github.com/Bluetooth-Devices/bthome-ble/tree/main/tests>`_. First compile the format description into the Python parser code, move the generated Python files to the directory with the Python example, and then install `pytest <https://docs.pytest.org>`_ and run the tests with:
+There's a `Python test script <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/tests/test_bthome_v2.py>`_ that tests the generated Python parser on some data files with service data. Those data files contain service data from BTHome advertisements used in `bthome-ble's tests <https://github.com/Bluetooth-Devices/bthome-ble/tree/main/tests>`_. First compile the format description into the Python parser code, move the generated Python files to the directory with the Python example, and then install `pytest <https://docs.pytest.org>`_ and run the tests with:
 
 .. code-block:: shell
 
