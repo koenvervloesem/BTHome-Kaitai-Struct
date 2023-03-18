@@ -80,6 +80,9 @@ seq:
         'bthome_object_id::sensor_volume_flow_rate_0_001': bthome_sensor_volume_flow_rate_0_001
         'bthome_object_id::sensor_voltage_0_1': bthome_sensor_voltage_0_1
         'bthome_object_id::sensor_gas': bthome_sensor_gas
+        'bthome_object_id::sensor_gas_uint32': bthome_sensor_gas_uint32
+        'bthome_object_id::sensor_energy_0_001_uint32': bthome_sensor_energy_0_001_uint32
+        'bthome_object_id::sensor_volume_0_001': bthome_sensor_volume_0_001
         _: bthome_unknown
 enums:
   bthome_object_id:
@@ -148,6 +151,9 @@ enums:
     0x49: sensor_volume_flow_rate_0_001
     0x4A: sensor_voltage_0_1
     0x4B: sensor_gas
+    0x4C: sensor_gas_uint32
+    0x4D: sensor_energy_0_001_uint32
+    0x4E: sensor_volume_0_001
   button_event_type:
     0x00: none
     0x01: press
@@ -579,6 +585,33 @@ types:
         value: value.value * 0.001
       unit:
         value: '"m³"'
+  bthome_sensor_gas_uint32:
+    seq:
+      - id: value
+        type: u4
+    instances:
+      gas:
+        value: value * 0.001
+      unit:
+        value: '"m³"'
+  bthome_sensor_energy_0_001_uint32:
+    seq:
+      - id: value
+        type: u4
+    instances:
+      energy:
+        value: value * 0.001
+      unit:
+        value: '"kWh"'
+  bthome_sensor_volume_0_001:
+    seq:
+      - id: value
+        type: u4
+    instances:
+      volume:
+        value: value * 0.001
+      unit:
+        value: '"L"'
   bthome_unknown:
     doc: Data with unknown object ID are parsed as a byte array until the end
     seq:

@@ -82,6 +82,9 @@ class BthomeMeasurement(KaitaiStruct):
         sensor_volume_flow_rate_0_001 = 73
         sensor_voltage_0_1 = 74
         sensor_gas = 75
+        sensor_gas_uint32 = 76
+        sensor_energy_0_001_uint32 = 77
+        sensor_volume_0_001 = 78
 
     class ButtonEventType(Enum):
         none = 0
@@ -141,6 +144,8 @@ class BthomeMeasurement(KaitaiStruct):
             self.data = BthomeMeasurement.BthomeMiscPacketId(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.sensor_volume_flow_rate_0_001:
             self.data = BthomeMeasurement.BthomeSensorVolumeFlowRate0001(self._io, self, self._root)
+        elif _on == BthomeMeasurement.BthomeObjectId.sensor_volume_0_001:
+            self.data = BthomeMeasurement.BthomeSensorVolume0001(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.binary_occupancy:
             self.data = BthomeMeasurement.BthomeBinaryOccupancy(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.binary_door:
@@ -209,6 +214,8 @@ class BthomeMeasurement(KaitaiStruct):
             self.data = BthomeMeasurement.BthomeBinaryBattery(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.sensor_count_uint16:
             self.data = BthomeMeasurement.BthomeSensorCountUint16(self._io, self, self._root)
+        elif _on == BthomeMeasurement.BthomeObjectId.sensor_gas_uint32:
+            self.data = BthomeMeasurement.BthomeSensorGasUint32(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.binary_power:
             self.data = BthomeMeasurement.BthomeBinaryPower(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.sensor_count:
@@ -227,6 +234,8 @@ class BthomeMeasurement(KaitaiStruct):
             self.data = BthomeMeasurement.BthomeSensorSpeed001(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.event_dimmer:
             self.data = BthomeMeasurement.BthomeEventDimmer(self._io, self, self._root)
+        elif _on == BthomeMeasurement.BthomeObjectId.sensor_energy_0_001_uint32:
+            self.data = BthomeMeasurement.BthomeSensorEnergy0001Uint32(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.binary_safety:
             self.data = BthomeMeasurement.BthomeBinarySafety(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.binary_vibration:
@@ -461,6 +470,33 @@ class BthomeMeasurement(KaitaiStruct):
 
 
 
+    class BthomeSensorGasUint32(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.value = self._io.read_u4le()
+
+        @property
+        def gas(self):
+            if hasattr(self, '_m_gas'):
+                return self._m_gas if hasattr(self, '_m_gas') else None
+
+            self._m_gas = (self.value * 0.001)
+            return self._m_gas if hasattr(self, '_m_gas') else None
+
+        @property
+        def unit(self):
+            if hasattr(self, '_m_unit'):
+                return self._m_unit if hasattr(self, '_m_unit') else None
+
+            self._m_unit = u"m\263"
+            return self._m_unit if hasattr(self, '_m_unit') else None
+
+
     class BthomeSensorPm25(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
@@ -579,6 +615,33 @@ class BthomeMeasurement(KaitaiStruct):
 
         def _read(self):
             self.power = BthomeMeasurement.Bool8(self._io, self, self._root)
+
+
+    class BthomeSensorEnergy0001Uint32(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.value = self._io.read_u4le()
+
+        @property
+        def energy(self):
+            if hasattr(self, '_m_energy'):
+                return self._m_energy if hasattr(self, '_m_energy') else None
+
+            self._m_energy = (self.value * 0.001)
+            return self._m_energy if hasattr(self, '_m_energy') else None
+
+        @property
+        def unit(self):
+            if hasattr(self, '_m_unit'):
+                return self._m_unit if hasattr(self, '_m_unit') else None
+
+            self._m_unit = u"kWh"
+            return self._m_unit if hasattr(self, '_m_unit') else None
 
 
     class BthomeBinaryOpening(KaitaiStruct):
@@ -1118,6 +1181,33 @@ class BthomeMeasurement(KaitaiStruct):
 
         def _read(self):
             self.battery_charging = BthomeMeasurement.Bool8(self._io, self, self._root)
+
+
+    class BthomeSensorVolume0001(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.value = self._io.read_u4le()
+
+        @property
+        def volume(self):
+            if hasattr(self, '_m_volume'):
+                return self._m_volume if hasattr(self, '_m_volume') else None
+
+            self._m_volume = (self.value * 0.001)
+            return self._m_volume if hasattr(self, '_m_volume') else None
+
+        @property
+        def unit(self):
+            if hasattr(self, '_m_unit'):
+                return self._m_unit if hasattr(self, '_m_unit') else None
+
+            self._m_unit = u"L"
+            return self._m_unit if hasattr(self, '_m_unit') else None
 
 
     class BthomeSensorDistanceM01(KaitaiStruct):

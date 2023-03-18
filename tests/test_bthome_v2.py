@@ -302,6 +302,27 @@ def test_bthome_gas(bthome_data):
     assert bthome_data.measurements[0].data.unit == "m³"
 
 
+@pytest.mark.parametrize("filename", ["data/bthome_gas_2.bin"])
+def test_bthome_gas_2(bthome_data):
+    """Test BTHome parser for uint32 gas reading without encryption."""
+    assert round(bthome_data.measurements[0].data.gas, 3) == 25821.505
+    assert bthome_data.measurements[0].data.unit == "m³"
+
+
+@pytest.mark.parametrize("filename", ["data/bthome_energy_2.bin"])
+def test_bthome_energy_2(bthome_data):
+    """Test BTHome parser for uint32 energy reading without encryption."""
+    assert round(bthome_data.measurements[0].data.energy, 3) == 344593.17
+    assert bthome_data.measurements[0].data.unit == "kWh"
+
+
+@pytest.mark.parametrize("filename", ["data/bthome_volume_liters_2.bin"])
+def test_bthome_volume_liters_2(bthome_data):
+    """Test BTHome parser for uint32 volume in liters."""
+    assert round(bthome_data.measurements[0].data.volume, 3) == 19551.879
+    assert bthome_data.measurements[0].data.unit == "L"
+
+
 @pytest.mark.parametrize("filename", ["data/bthome_double_temperature.bin"])
 def test_bthome_double_temperature(bthome_data):
     """Test BTHome parser for double temperature reading without encryption."""
