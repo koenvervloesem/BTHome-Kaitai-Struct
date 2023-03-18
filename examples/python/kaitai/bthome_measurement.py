@@ -85,6 +85,7 @@ class BthomeMeasurement(KaitaiStruct):
         sensor_gas_uint32 = 76
         sensor_energy_0_001_uint32 = 77
         sensor_volume_0_001 = 78
+        sensor_water = 79
 
     class ButtonEventType(Enum):
         none = 0
@@ -220,6 +221,8 @@ class BthomeMeasurement(KaitaiStruct):
             self.data = BthomeMeasurement.BthomeBinaryPower(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.sensor_count:
             self.data = BthomeMeasurement.BthomeSensorCount(self._io, self, self._root)
+        elif _on == BthomeMeasurement.BthomeObjectId.sensor_water:
+            self.data = BthomeMeasurement.BthomeSensorWater(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.sensor_humidity:
             self.data = BthomeMeasurement.BthomeSensorHumidity(self._io, self, self._root)
         elif _on == BthomeMeasurement.BthomeObjectId.binary_carbon_monoxide:
@@ -1003,6 +1006,33 @@ class BthomeMeasurement(KaitaiStruct):
                 return self._m_unit if hasattr(self, '_m_unit') else None
 
             self._m_unit = u"kg"
+            return self._m_unit if hasattr(self, '_m_unit') else None
+
+
+    class BthomeSensorWater(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.value = self._io.read_u4le()
+
+        @property
+        def water(self):
+            if hasattr(self, '_m_water'):
+                return self._m_water if hasattr(self, '_m_water') else None
+
+            self._m_water = (self.value * 0.001)
+            return self._m_water if hasattr(self, '_m_water') else None
+
+        @property
+        def unit(self):
+            if hasattr(self, '_m_unit'):
+                return self._m_unit if hasattr(self, '_m_unit') else None
+
+            self._m_unit = u"L"
             return self._m_unit if hasattr(self, '_m_unit') else None
 
 

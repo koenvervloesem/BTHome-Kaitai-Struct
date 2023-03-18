@@ -83,6 +83,7 @@ seq:
         'bthome_object_id::sensor_gas_uint32': bthome_sensor_gas_uint32
         'bthome_object_id::sensor_energy_0_001_uint32': bthome_sensor_energy_0_001_uint32
         'bthome_object_id::sensor_volume_0_001': bthome_sensor_volume_0_001
+        'bthome_object_id::sensor_water': bthome_sensor_water
         _: bthome_unknown
 enums:
   bthome_object_id:
@@ -154,6 +155,7 @@ enums:
     0x4C: sensor_gas_uint32
     0x4D: sensor_energy_0_001_uint32
     0x4E: sensor_volume_0_001
+    0x4F: sensor_water
   button_event_type:
     0x00: none
     0x01: press
@@ -609,6 +611,15 @@ types:
         type: u4
     instances:
       volume:
+        value: value * 0.001
+      unit:
+        value: '"L"'
+  bthome_sensor_water:
+    seq:
+      - id: value
+        type: u4
+    instances:
+      water:
         value: value * 0.001
       unit:
         value: '"L"'

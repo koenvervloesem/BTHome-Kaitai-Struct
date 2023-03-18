@@ -323,6 +323,13 @@ def test_bthome_volume_liters_2(bthome_data):
     assert bthome_data.measurements[0].data.unit == "L"
 
 
+@pytest.mark.parametrize("filename", ["data/bthome_volume_water.bin"])
+def test_bthome_volume_water(bthome_data):
+    """Test BTHome parser for water in liters."""
+    assert round(bthome_data.measurements[0].data.water, 3) == 19551.879
+    assert bthome_data.measurements[0].data.unit == "L"
+
+
 @pytest.mark.parametrize("filename", ["data/bthome_double_temperature.bin"])
 def test_bthome_double_temperature(bthome_data):
     """Test BTHome parser for double temperature reading without encryption."""
