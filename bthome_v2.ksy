@@ -30,7 +30,9 @@ types:
         type: b1
       - id: mac_included
         type: b1
+      - id: trigger_based
+        type: b1
       - id: reserved_for_future_use
-        type: b3
+        type: b2
       - id: bthome_version
         type: b3

@@ -2,6 +2,11 @@
 Changelog
 =========
 
+Version 2.11.3 (2023-05-25)
+===========================
+
+Compatible with bthome-ble 2.11.3. Adds sleepy devices.
+
 Version 2.9.0 (2023-03-18)
 ==========================
 

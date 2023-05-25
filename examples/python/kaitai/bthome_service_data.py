@@ -47,7 +47,8 @@ class BthomeServiceData(KaitaiStruct):
         def _read(self):
             self.encryption = self._io.read_bits_int_le(1) != 0
             self.mac_included = self._io.read_bits_int_le(1) != 0
-            self.reserved_for_future_use = self._io.read_bits_int_le(3)
+            self.trigger_based = self._io.read_bits_int_le(1) != 0
+            self.reserved_for_future_use = self._io.read_bits_int_le(2)
             self.bthome_version = self._io.read_bits_int_le(3)
 
 

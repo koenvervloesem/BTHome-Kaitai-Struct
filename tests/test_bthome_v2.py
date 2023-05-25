@@ -142,6 +142,12 @@ def test_bthome_binary_sensor_opening(bthome_data):
     assert bthome_data.measurements[0].data.opening.value is False
 
 
+@pytest.mark.parametrize("filename", ["data/bthome_binary_sensor_window.bin"])
+def test_bthome_binary_sensor_window(bthome_data):
+    """Test BTHome parser for binary sensor window without encryption."""
+    assert bthome_data.measurements[0].data.window.value is True
+
+
 @pytest.mark.parametrize("filename", ["data/bthome_pm.bin"])
 def test_bthome_pm(bthome_data):
     """Test BTHome parser for PM2.5 and PM10 reading without encryption."""
@@ -375,3 +381,18 @@ def test_bthome_double_voltage_different_object_id(bthome_data):
     assert bthome_data.measurements[3].data.unit == "%"
     assert round(bthome_data.measurements[4].data.voltage, 3) == 3.305
     assert bthome_data.measurements[4].data.unit == "V"
+
+
+@pytest.mark.parametrize(
+    "filename", ["data/bthome_shelly_button.bin"]
+)
+def test_bthome_shelly_button(bthome_data):
+    """Test BTHome parser for Shelly button."""
+    assert bthome_data.measurements[0].data.packet_id == 82
+    assert bthome_data.measurements[1].data.battery == 100
+    assert bthome_data.measurements[1].data.unit == "%"
+    assert (
+        bthome_data.measurements[2].data.event
+        == BthomeMeasurement.ButtonEventType.press
+    )
+
