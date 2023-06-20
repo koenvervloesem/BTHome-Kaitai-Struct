@@ -1,20 +1,30 @@
 """
-Detect unencrypted BTHome v2 advertisements
+Detect BTHome v2 advertisements
 
 Based on Bleak's detection_callback.py example script.
 """
 
 import argparse
 import asyncio
+import binascii
 import logging
 
 from bleak import BleakScanner
 from bleak.backends.device import BLEDevice
 from bleak.backends.scanner import AdvertisementData
+from Cryptodome.Cipher import AES
 from kaitai.bthome_service_data import BthomeServiceData
 
 logger = logging.getLogger(__name__)
 
+def decrypt_payload(payload: bytes, mic: bytes, bindkey: bytes, nonce: bytes):
+    cipher = AES.new(bindkey, AES.MODE_CCM, nonce=nonce, mac_len=4)
+    try:
+        return cipher.decrypt_and_verify(payload, mic)
+    except ValueError as error:
+        print()
+        print("Decryption failed:", error)
+        return None
 
 def simple_callback(device: BLEDevice, advertisement_data: AdvertisementData):
     try:
@@ -26,7 +36,27 @@ def simple_callback(device: BLEDevice, advertisement_data: AdvertisementData):
 
     print("name:", device.name)
     bthome_data = BthomeServiceData.from_bytes(service_data)
-    for measurement in bthome_data.measurements:
+    if bthome_data.device_information.encryption:
+        ciphertext = bthome_data.ciphertext
+        counter = binascii.b2a_hex(bthome_data.counter.to_bytes(4, "big")).decode("utf-8")
+        mic = bthome_data.mic.to_bytes(4, "big")
+        print("Ciphertext: ", ciphertext.hex())
+        print("Counter: ", counter)
+        print("Message Integrity Check: ", mic.hex())
+        nonce = binascii.unhexlify("".join([device.address.replace(":", ""), "d2fc", binascii.b2a_hex(service_data[0:1]).decode("utf-8"), counter]))
+        print("Nonce: ", nonce.hex())
+        decrypted_data = decrypt_payload(ciphertext, mic, bytes.fromhex(args.bindkey), nonce)
+        print("Decrypted data:", decrypted_data.hex())
+        # Treat the data as unencrypted BTHome data without MAC address
+        bthome_service_data = bytearray([service_data[0] & 0xfc])
+        bthome_service_data.extend(decrypted_data)
+        bthome_service_data = BthomeServiceData.from_bytes(bthome_service_data)
+        show_measurements(bthome_service_data.measurement)
+    else:
+        show_measurements(bthome_data.measurement)
+
+def show_measurements(measurements):
+    for measurement in measurements:
         print("type:", measurement.object_id.name)
         for attribute, value in vars(measurement.data).items():
             if not (attribute.startswith("_") or attribute == "value"):
@@ -54,6 +84,11 @@ async def main(args: argparse.Namespace):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--bindkey",
+        help="bindkey to decrypt encrypted BTHome messages",
+    )
 
     parser.add_argument(
         "--macos-use-bdaddr",

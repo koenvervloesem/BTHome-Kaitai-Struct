@@ -11,11 +11,10 @@ This is a description of the `BTHome <https://bthome.io/>`_ format for broadcast
 Format description
 ==================
 
-The format description in Kaitai Struct is listed in three files:
+The format description in Kaitai Struct is listed in two files:
 
 * `advertising\_data.ksy <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/advertising_data.ksy>`_: the raw advertising data, including advertising data elements for flags, local name and service data
 * `bthome\_v2.ksy <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/bthome_v2.ksy>`_: the service data for BTHome's UUID 0xFCD2
-* `bthome\_v2\_unencrypted.ksy <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/bthome_v2_unencrypted.ksy>`_: unencrypted BTHome v2 measurements
 
 In most applications you should use bthome\_v2.ksy. For example, the files in the `data <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/tree/main/data>`_ directory contain service data that can be decoded with this Kaitai Struct file. The `Python example script <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/blob/main/examples/python/detect_bthome_v2.py>`_ also uses a `Python package <https://github.com/koenvervloesem/BTHome-Kaitai-Struct/tree/main/examples/python/kaitai>`_ generated from this file.
 
@@ -25,7 +24,7 @@ Limitations
 The format description currently has the following limitations:
 
 * Only the `BTHome v2 format <https://bthome.io/format/>`_ is supported.
-* The `encrypted format <https://bthome.io/encryption/>`_ isn't supported.
+* The `encrypted format <https://bthome.io/encryption/>`_ is supported, but the decryption of the ciphertext should be implemented as extra code. Look at the tests or the Python example code for a way to do this.
 
 Exploring the structure of BTHome data
 ======================================
@@ -45,7 +44,7 @@ You can also dump the decoded information from a file with BTHome service data w
 
 .. code-block:: shell
 
-  $ ksdump data/bthome_double_voltage_different_object_id.bin bthome_v2.ksy 
+  $ ksdump data/bthome_double_voltage_different_object_id.bin bthome_v2.ksy
   Compilation OK
   ... processing bthome_v2.ksy 0
   ...... loading bthome_service_data.rb
@@ -56,7 +55,8 @@ You can also dump the decoded information from a file with BTHome service data w
     encryption: false
     mac_included: false
     reserved_for_future_use: 0
-  measurements:
+    trigger_based: false
+  measurement:
   - data:
       packet_id: 1
   - data:
@@ -101,7 +101,7 @@ Install the requirements of the example script and run it:
   pip install -r examples/python/requirements.txt
   python examples/python/detect_bthome_v2.py
 
-This continuously scans for unencrypted BTHome v2 advertisements and decodes them.
+This continuously scans for BTHome v2 advertisements and decodes them. If you want to decrypt encrypted BTHome advertisements, add the bindkey with the ``--bindkey`` parameter on the command line.
 
 Testing the format description
 ==============================
