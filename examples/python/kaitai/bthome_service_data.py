@@ -86,6 +86,9 @@ class BthomeServiceData(KaitaiStruct):
         sensor_energy_0_001_uint32 = 77
         sensor_volume_0_001 = 78
         sensor_water = 79
+        sensor_timestamp = 80
+        sensor_acceleration = 81
+        sensor_gyroscope = 82
 
     class ButtonEventType(Enum):
         none = 0
@@ -353,6 +356,33 @@ class BthomeServiceData(KaitaiStruct):
             self.sound = BthomeServiceData.Bool8(self._io, self, self._root)
 
 
+    class BthomeSensorAcceleration(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.value = self._io.read_u2le()
+
+        @property
+        def acceleration(self):
+            if hasattr(self, '_m_acceleration'):
+                return self._m_acceleration if hasattr(self, '_m_acceleration') else None
+
+            self._m_acceleration = (self.value * 0.001)
+            return self._m_acceleration if hasattr(self, '_m_acceleration') else None
+
+        @property
+        def unit(self):
+            if hasattr(self, '_m_unit'):
+                return self._m_unit if hasattr(self, '_m_unit') else None
+
+            self._m_unit = u"m/s\262"
+            return self._m_unit if hasattr(self, '_m_unit') else None
+
+
     class BthomeEventDimmer(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
@@ -430,6 +460,17 @@ class BthomeServiceData(KaitaiStruct):
 
             self._m_unit = u"mL"
             return self._m_unit if hasattr(self, '_m_unit') else None
+
+
+    class BthomeSensorTimestamp(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.value = self._io.read_u4le()
 
 
     class BthomeBinaryMoving(KaitaiStruct):
@@ -1094,6 +1135,8 @@ class BthomeServiceData(KaitaiStruct):
                 self.data = BthomeServiceData.BthomeBinaryTamper(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_voltage_0_001:
                 self.data = BthomeServiceData.BthomeSensorVoltage0001(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.sensor_timestamp:
+                self.data = BthomeServiceData.BthomeSensorTimestamp(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_plug:
                 self.data = BthomeServiceData.BthomeBinaryPlug(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_battery_charging:
@@ -1116,6 +1159,8 @@ class BthomeServiceData(KaitaiStruct):
                 self.data = BthomeServiceData.BthomeSensorVoltage01(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_illuminance_0_01:
                 self.data = BthomeServiceData.BthomeSensorIlluminance001(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.sensor_acceleration:
+                self.data = BthomeServiceData.BthomeSensorAcceleration(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_temperature_0_1:
                 self.data = BthomeServiceData.BthomeSensorTemperature01(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_battery:
@@ -1144,6 +1189,8 @@ class BthomeServiceData(KaitaiStruct):
                 self.data = BthomeServiceData.BthomeSensorSpeed001(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.event_dimmer:
                 self.data = BthomeServiceData.BthomeEventDimmer(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.sensor_gyroscope:
+                self.data = BthomeServiceData.BthomeSensorGyroscope(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_energy_0_001_uint32:
                 self.data = BthomeServiceData.BthomeSensorEnergy0001Uint32(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_safety:
@@ -1550,6 +1597,33 @@ class BthomeServiceData(KaitaiStruct):
 
         def _read(self):
             self.gas = BthomeServiceData.Bool8(self._io, self, self._root)
+
+
+    class BthomeSensorGyroscope(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.value = self._io.read_u2le()
+
+        @property
+        def gyroscope(self):
+            if hasattr(self, '_m_gyroscope'):
+                return self._m_gyroscope if hasattr(self, '_m_gyroscope') else None
+
+            self._m_gyroscope = (self.value * 0.001)
+            return self._m_gyroscope if hasattr(self, '_m_gyroscope') else None
+
+        @property
+        def unit(self):
+            if hasattr(self, '_m_unit'):
+                return self._m_unit if hasattr(self, '_m_unit') else None
+
+            self._m_unit = u"\260/s"
+            return self._m_unit if hasattr(self, '_m_unit') else None
 
 
     class BthomeSensorDuration0001(KaitaiStruct):
