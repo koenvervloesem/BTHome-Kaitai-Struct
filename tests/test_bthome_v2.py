@@ -1,10 +1,12 @@
 """Tests for Python module generated from BTHome Kaitai Struct files."""
 import binascii
+from datetime import datetime, timezone
 import pytest
 
 from examples.python.kaitai.bthome_service_data import BthomeServiceData
 
 from Cryptodome.Cipher import AES
+
 
 def decrypt_payload(payload: bytes, mic: bytes, bindkey: bytes, nonce: bytes) -> bytes:
     cipher = AES.new(bindkey, AES.MODE_CCM, nonce=nonce, mac_len=4)
@@ -203,8 +205,7 @@ def test_bthome_event_triple_button_device(bthome_data):
         bthome_data.measurement[0].data.event == BthomeServiceData.ButtonEventType.none
     )
     assert (
-        bthome_data.measurement[1].data.event
-        == BthomeServiceData.ButtonEventType.press
+        bthome_data.measurement[1].data.event == BthomeServiceData.ButtonEventType.press
     )
     assert (
         bthome_data.measurement[2].data.event
@@ -342,6 +343,29 @@ def test_bthome_volume_water(bthome_data):
     assert bthome_data.measurement[0].data.unit == "L"
 
 
+@pytest.mark.parametrize("filename", ["data/bthome_timestamp.bin"])
+def test_bthome_timestamp(bthome_data):
+    """Test BTHome parser for Unix timestamp."""
+    timestamp = bthome_data.measurement[0].data.value
+    assert (
+        datetime(2023, 5, 14, 19, 41, 17, tzinfo=timezone.utc).timestamp() == timestamp
+    )
+
+
+@pytest.mark.parametrize("filename", ["data/bthome_acceleration.bin"])
+def test_bthome_acceleration(bthome_data):
+    """Test BTHome parser for acceleration in m/s²."""
+    assert round(bthome_data.measurement[0].data.acceleration, 3) == 22.151
+    assert bthome_data.measurement[0].data.unit == "m/s²"
+
+
+@pytest.mark.parametrize("filename", ["data/bthome_gyroscope.bin"])
+def test_bthome_gyroscope(bthome_data):
+    """Test BTHome parser for gyroscope in °/s."""
+    assert round(bthome_data.measurement[0].data.gyroscope, 3) == 22.151
+    assert bthome_data.measurement[0].data.unit == "°/s"
+
+
 @pytest.mark.parametrize("filename", ["data/bthome_double_temperature.bin"])
 def test_bthome_double_temperature(bthome_data):
     """Test BTHome parser for double temperature reading without encryption."""
@@ -389,17 +413,14 @@ def test_bthome_double_voltage_different_object_id(bthome_data):
     assert bthome_data.measurement[4].data.unit == "V"
 
 
-@pytest.mark.parametrize(
-    "filename", ["data/bthome_shelly_button.bin"]
-)
+@pytest.mark.parametrize("filename", ["data/bthome_shelly_button.bin"])
 def test_bthome_shelly_button(bthome_data):
     """Test BTHome parser for Shelly button."""
     assert bthome_data.measurement[0].data.packet_id == 82
     assert bthome_data.measurement[1].data.battery == 100
     assert bthome_data.measurement[1].data.unit == "%"
     assert (
-        bthome_data.measurement[2].data.event
-        == BthomeServiceData.ButtonEventType.press
+        bthome_data.measurement[2].data.event == BthomeServiceData.ButtonEventType.press
     )
 
 
@@ -426,6 +447,7 @@ def test_bthome_shelly_button_encrypted(bthome_data):
         bthome_service_data.measurement[2].data.event
         == BthomeServiceData.ButtonEventType.press
     )
+
 
 @pytest.mark.parametrize("filename", ["data/bthome_temperature_humidity_encrypted.bin"])
 def test_bthome_temperature_humidity_encrypted(bthome_data):
