@@ -91,6 +91,9 @@ class BthomeServiceData(KaitaiStruct):
         sensor_text = 83
         sensor_raw = 84
         sensor_volume_storage = 85
+        device_type = 240
+        device_fw_version_uint32 = 241
+        device_fw_version_uint24 = 242
 
     class ButtonEventType(Enum):
         none = 0
@@ -400,6 +403,17 @@ class BthomeServiceData(KaitaiStruct):
 
 
 
+    class BthomeDeviceType(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.device_type_id = self._io.read_u2le()
+
+
     class BthomeSensorGasUint32(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
@@ -485,6 +499,19 @@ class BthomeServiceData(KaitaiStruct):
 
         def _read(self):
             self.moving = BthomeServiceData.Bool8(self._io, self, self._root)
+
+
+    class BthomeDeviceFwVersionUint24(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.fw_version_patch = self._io.read_u1()
+            self.fw_version_minor = self._io.read_u1()
+            self.fw_version_major = self._io.read_u1()
 
 
     class BthomeMiscPacketId(KaitaiStruct):
@@ -796,6 +823,20 @@ class BthomeServiceData(KaitaiStruct):
 
             self._m_unit = u"lux"
             return getattr(self, '_m_unit', None)
+
+
+    class BthomeDeviceFwVersionUint32(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.fw_version_build = self._io.read_u1()
+            self.fw_version_patch = self._io.read_u1()
+            self.fw_version_minor = self._io.read_u1()
+            self.fw_version_major = self._io.read_u1()
 
 
     class BthomeSensorMassLb001(KaitaiStruct):
@@ -1179,6 +1220,8 @@ class BthomeServiceData(KaitaiStruct):
                 self.data = BthomeServiceData.BthomeEventButton(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_tamper:
                 self.data = BthomeServiceData.BthomeBinaryTamper(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.device_fw_version_uint32:
+                self.data = BthomeServiceData.BthomeDeviceFwVersionUint32(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_voltage_0_001:
                 self.data = BthomeServiceData.BthomeSensorVoltage0001(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_timestamp:
@@ -1209,6 +1252,10 @@ class BthomeServiceData(KaitaiStruct):
                 self.data = BthomeServiceData.BthomeSensorAcceleration(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_temperature_0_1:
                 self.data = BthomeServiceData.BthomeSensorTemperature01(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.device_type:
+                self.data = BthomeServiceData.BthomeDeviceType(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.device_fw_version_uint24:
+                self.data = BthomeServiceData.BthomeDeviceFwVersionUint24(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_battery:
                 self.data = BthomeServiceData.BthomeBinaryBattery(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_count_uint16:

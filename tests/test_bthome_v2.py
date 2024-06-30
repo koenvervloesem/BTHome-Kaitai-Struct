@@ -394,6 +394,29 @@ def test_bthome_volume_storage(bthome_data):
     assert bthome_data.measurement[0].data.unit == "L"
 
 
+@pytest.mark.parametrize("filename", ["data/bthome_device_type_id.bin"])
+def test_bthome_device_type_id(bthome_data):
+    """Test BTHome parser for device type ID."""
+    assert bthome_data.measurement[0].data.device_type_id == 1
+
+
+@pytest.mark.parametrize("filename", ["data/bthome_device_fw_version_uint32.bin"])
+def test_bthome_device_fw_version_uint32(bthome_data):
+    """Test BTHome parser for device firmware version (4 bytes)."""
+    assert bthome_data.measurement[0].data.fw_version_major == 4
+    assert bthome_data.measurement[0].data.fw_version_minor == 2
+    assert bthome_data.measurement[0].data.fw_version_patch == 1
+    assert bthome_data.measurement[0].data.fw_version_build == 0
+
+
+@pytest.mark.parametrize("filename", ["data/bthome_device_fw_version_uint24.bin"])
+def test_bthome_device_fw_version_uint24(bthome_data):
+    """Test BTHome parser for device firmware version (3 bytes)."""
+    assert bthome_data.measurement[0].data.fw_version_major == 6
+    assert bthome_data.measurement[0].data.fw_version_minor == 1
+    assert bthome_data.measurement[0].data.fw_version_patch == 0
+
+
 @pytest.mark.parametrize("filename", ["data/bthome_double_temperature.bin"])
 def test_bthome_double_temperature(bthome_data):
     """Test BTHome parser for double temperature reading without encryption."""
