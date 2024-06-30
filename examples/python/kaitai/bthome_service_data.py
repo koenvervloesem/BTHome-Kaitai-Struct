@@ -1,12 +1,11 @@
 # This is a generated file! Please edit source .ksy file and use kaitai-struct-compiler to rebuild
 
-from pkg_resources import parse_version
 import kaitaistruct
 from kaitaistruct import KaitaiStruct, KaitaiStream, BytesIO
 from enum import Enum
 
 
-if parse_version(kaitaistruct.__version__) < parse_version('0.9'):
+if getattr(kaitaistruct, 'API_VERSION', (0, 9)) < (0, 9):
     raise Exception("Incompatible Kaitai Struct Python API: 0.9 or later is required, but you have %s" % (kaitaistruct.__version__))
 
 class BthomeServiceData(KaitaiStruct):
@@ -89,6 +88,7 @@ class BthomeServiceData(KaitaiStruct):
         sensor_timestamp = 80
         sensor_acceleration = 81
         sensor_gyroscope = 82
+        sensor_text = 83
 
     class ButtonEventType(Enum):
         none = 0
@@ -145,18 +145,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def energy(self):
             if hasattr(self, '_m_energy'):
-                return self._m_energy if hasattr(self, '_m_energy') else None
+                return self._m_energy
 
             self._m_energy = (self.value.value * 0.001)
-            return self._m_energy if hasattr(self, '_m_energy') else None
+            return getattr(self, '_m_energy', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"kWh"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorCountUint32(KaitaiStruct):
@@ -183,10 +183,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"%"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorCo2(KaitaiStruct):
@@ -202,10 +202,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"ppm"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorVoltage0001(KaitaiStruct):
@@ -221,18 +221,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def voltage(self):
             if hasattr(self, '_m_voltage'):
-                return self._m_voltage if hasattr(self, '_m_voltage') else None
+                return self._m_voltage
 
             self._m_voltage = (self.value * 0.001)
-            return self._m_voltage if hasattr(self, '_m_voltage') else None
+            return getattr(self, '_m_voltage', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"V"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeDeviceInformation(KaitaiStruct):
@@ -274,18 +274,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def current(self):
             if hasattr(self, '_m_current'):
-                return self._m_current if hasattr(self, '_m_current') else None
+                return self._m_current
 
             self._m_current = (self.value * 0.001)
-            return self._m_current if hasattr(self, '_m_current') else None
+            return getattr(self, '_m_current', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"A"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorVolume01(KaitaiStruct):
@@ -301,18 +301,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def volume(self):
             if hasattr(self, '_m_volume'):
-                return self._m_volume if hasattr(self, '_m_volume') else None
+                return self._m_volume
 
             self._m_volume = (self.value * 0.1)
-            return self._m_volume if hasattr(self, '_m_volume') else None
+            return getattr(self, '_m_volume', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"L"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryConnectivity(KaitaiStruct):
@@ -339,10 +339,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"\265g/m\263"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinarySound(KaitaiStruct):
@@ -369,18 +369,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def acceleration(self):
             if hasattr(self, '_m_acceleration'):
-                return self._m_acceleration if hasattr(self, '_m_acceleration') else None
+                return self._m_acceleration
 
             self._m_acceleration = (self.value * 0.001)
-            return self._m_acceleration if hasattr(self, '_m_acceleration') else None
+            return getattr(self, '_m_acceleration', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"m/s\262"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeEventDimmer(KaitaiStruct):
@@ -410,18 +410,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def gas(self):
             if hasattr(self, '_m_gas'):
-                return self._m_gas if hasattr(self, '_m_gas') else None
+                return self._m_gas
 
             self._m_gas = (self.value * 0.001)
-            return self._m_gas if hasattr(self, '_m_gas') else None
+            return getattr(self, '_m_gas', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"m\263"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorPm25(KaitaiStruct):
@@ -437,10 +437,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"\265g/m\263"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorVolume(KaitaiStruct):
@@ -456,10 +456,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"mL"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorTimestamp(KaitaiStruct):
@@ -508,18 +508,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def temperature(self):
             if hasattr(self, '_m_temperature'):
-                return self._m_temperature if hasattr(self, '_m_temperature') else None
+                return self._m_temperature
 
             self._m_temperature = (self.value * 0.1)
-            return self._m_temperature if hasattr(self, '_m_temperature') else None
+            return getattr(self, '_m_temperature', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"\260C"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryVibration(KaitaiStruct):
@@ -568,18 +568,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def energy(self):
             if hasattr(self, '_m_energy'):
-                return self._m_energy if hasattr(self, '_m_energy') else None
+                return self._m_energy
 
             self._m_energy = (self.value * 0.001)
-            return self._m_energy if hasattr(self, '_m_energy') else None
+            return getattr(self, '_m_energy', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"kWh"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryOpening(KaitaiStruct):
@@ -606,18 +606,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def pressure(self):
             if hasattr(self, '_m_pressure'):
-                return self._m_pressure if hasattr(self, '_m_pressure') else None
+                return self._m_pressure
 
             self._m_pressure = (self.value.value * 0.01)
-            return self._m_pressure if hasattr(self, '_m_pressure') else None
+            return getattr(self, '_m_pressure', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"hPa"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeEventButton(KaitaiStruct):
@@ -667,10 +667,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"\265g/m\263"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorDistanceMm(KaitaiStruct):
@@ -686,10 +686,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"mm"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryPresence(KaitaiStruct):
@@ -727,18 +727,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def gas(self):
             if hasattr(self, '_m_gas'):
-                return self._m_gas if hasattr(self, '_m_gas') else None
+                return self._m_gas
 
             self._m_gas = (self.value.value * 0.001)
-            return self._m_gas if hasattr(self, '_m_gas') else None
+            return getattr(self, '_m_gas', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"m\263"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorIlluminance001(KaitaiStruct):
@@ -754,18 +754,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def illuminance(self):
             if hasattr(self, '_m_illuminance'):
-                return self._m_illuminance if hasattr(self, '_m_illuminance') else None
+                return self._m_illuminance
 
             self._m_illuminance = (self.value.value * 0.01)
-            return self._m_illuminance if hasattr(self, '_m_illuminance') else None
+            return getattr(self, '_m_illuminance', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"lux"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorMassLb001(KaitaiStruct):
@@ -781,18 +781,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def mass(self):
             if hasattr(self, '_m_mass'):
-                return self._m_mass if hasattr(self, '_m_mass') else None
+                return self._m_mass
 
             self._m_mass = (self.value * 0.01)
-            return self._m_mass if hasattr(self, '_m_mass') else None
+            return getattr(self, '_m_mass', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"lb"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorTemperature001(KaitaiStruct):
@@ -808,18 +808,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def temperature(self):
             if hasattr(self, '_m_temperature'):
-                return self._m_temperature if hasattr(self, '_m_temperature') else None
+                return self._m_temperature
 
             self._m_temperature = (self.value * 0.01)
-            return self._m_temperature if hasattr(self, '_m_temperature') else None
+            return getattr(self, '_m_temperature', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"\260C"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryCold(KaitaiStruct):
@@ -846,10 +846,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def value(self):
             if hasattr(self, '_m_value'):
-                return self._m_value if hasattr(self, '_m_value') else None
+                return self._m_value
 
             self._m_value = (True if (self.int_value & 1) == 1 else False)
-            return self._m_value if hasattr(self, '_m_value') else None
+            return getattr(self, '_m_value', None)
 
 
     class BthomeBinaryHeat(KaitaiStruct):
@@ -900,10 +900,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def value(self):
             if hasattr(self, '_m_value'):
-                return self._m_value if hasattr(self, '_m_value') else None
+                return self._m_value
 
             self._m_value = ((self.low_byte | (self.middle_byte << 8)) | (self.high_byte << 16))
-            return self._m_value if hasattr(self, '_m_value') else None
+            return getattr(self, '_m_value', None)
 
 
     class BthomeBinaryGarageDoor(KaitaiStruct):
@@ -930,18 +930,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def mass(self):
             if hasattr(self, '_m_mass'):
-                return self._m_mass if hasattr(self, '_m_mass') else None
+                return self._m_mass
 
             self._m_mass = (self.value * 0.01)
-            return self._m_mass if hasattr(self, '_m_mass') else None
+            return getattr(self, '_m_mass', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"kg"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorWater(KaitaiStruct):
@@ -957,18 +957,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def water(self):
             if hasattr(self, '_m_water'):
-                return self._m_water if hasattr(self, '_m_water') else None
+                return self._m_water
 
             self._m_water = (self.value * 0.001)
-            return self._m_water if hasattr(self, '_m_water') else None
+            return getattr(self, '_m_water', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"L"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorSpeed001(KaitaiStruct):
@@ -984,18 +984,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def speed(self):
             if hasattr(self, '_m_speed'):
-                return self._m_speed if hasattr(self, '_m_speed') else None
+                return self._m_speed
 
             self._m_speed = (self.value * 0.01)
-            return self._m_speed if hasattr(self, '_m_speed') else None
+            return getattr(self, '_m_speed', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"m/s"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorDewpoint001(KaitaiStruct):
@@ -1011,18 +1011,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def dew_point(self):
             if hasattr(self, '_m_dew_point'):
-                return self._m_dew_point if hasattr(self, '_m_dew_point') else None
+                return self._m_dew_point
 
             self._m_dew_point = (self.value * 0.01)
-            return self._m_dew_point if hasattr(self, '_m_dew_point') else None
+            return getattr(self, '_m_dew_point', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"\260C"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryOccupancy(KaitaiStruct):
@@ -1187,6 +1187,8 @@ class BthomeServiceData(KaitaiStruct):
                 self.data = BthomeServiceData.BthomeSensorRotation01(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_speed_0_01:
                 self.data = BthomeServiceData.BthomeSensorSpeed001(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.sensor_text:
+                self.data = BthomeServiceData.BthomeSensorText(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.event_dimmer:
                 self.data = BthomeServiceData.BthomeEventDimmer(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_gyroscope:
@@ -1218,10 +1220,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"%"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryRunning(KaitaiStruct):
@@ -1259,18 +1261,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def power(self):
             if hasattr(self, '_m_power'):
-                return self._m_power if hasattr(self, '_m_power') else None
+                return self._m_power
 
             self._m_power = (self.value.value * 0.01)
-            return self._m_power if hasattr(self, '_m_power') else None
+            return getattr(self, '_m_power', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"W"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryMotion(KaitaiStruct):
@@ -1319,18 +1321,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def volume(self):
             if hasattr(self, '_m_volume'):
-                return self._m_volume if hasattr(self, '_m_volume') else None
+                return self._m_volume
 
             self._m_volume = (self.value * 0.001)
-            return self._m_volume if hasattr(self, '_m_volume') else None
+            return getattr(self, '_m_volume', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"L"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorDistanceM01(KaitaiStruct):
@@ -1346,18 +1348,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def distance(self):
             if hasattr(self, '_m_distance'):
-                return self._m_distance if hasattr(self, '_m_distance') else None
+                return self._m_distance
 
             self._m_distance = (self.value * 0.1)
-            return self._m_distance if hasattr(self, '_m_distance') else None
+            return getattr(self, '_m_distance', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"m"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorHumidity(KaitaiStruct):
@@ -1373,10 +1375,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"%"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryCarbonMonoxide(KaitaiStruct):
@@ -1388,6 +1390,18 @@ class BthomeServiceData(KaitaiStruct):
 
         def _read(self):
             self.carbon_monoxide = BthomeServiceData.Bool8(self._io, self, self._root)
+
+
+    class BthomeSensorText(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.len = self._io.read_u1()
+            self.value = (self._io.read_bytes(self.len)).decode(u"UTF-8")
 
 
     class BthomeBinaryLight(KaitaiStruct):
@@ -1425,18 +1439,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def humidity(self):
             if hasattr(self, '_m_humidity'):
-                return self._m_humidity if hasattr(self, '_m_humidity') else None
+                return self._m_humidity
 
             self._m_humidity = (self.value * 0.01)
-            return self._m_humidity if hasattr(self, '_m_humidity') else None
+            return getattr(self, '_m_humidity', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"%"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorMoisture001(KaitaiStruct):
@@ -1452,18 +1466,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def moisture(self):
             if hasattr(self, '_m_moisture'):
-                return self._m_moisture if hasattr(self, '_m_moisture') else None
+                return self._m_moisture
 
             self._m_moisture = (self.value * 0.01)
-            return self._m_moisture if hasattr(self, '_m_moisture') else None
+            return getattr(self, '_m_moisture', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"%"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorVolumeFlowRate0001(KaitaiStruct):
@@ -1479,18 +1493,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def volume_flow_rate(self):
             if hasattr(self, '_m_volume_flow_rate'):
-                return self._m_volume_flow_rate if hasattr(self, '_m_volume_flow_rate') else None
+                return self._m_volume_flow_rate
 
             self._m_volume_flow_rate = (self.value * 0.001)
-            return self._m_volume_flow_rate if hasattr(self, '_m_volume_flow_rate') else None
+            return getattr(self, '_m_volume_flow_rate', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"m\263/hr"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinarySmoke(KaitaiStruct):
@@ -1517,10 +1531,10 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def uv_index(self):
             if hasattr(self, '_m_uv_index'):
-                return self._m_uv_index if hasattr(self, '_m_uv_index') else None
+                return self._m_uv_index
 
             self._m_uv_index = (self.value * 0.1)
-            return self._m_uv_index if hasattr(self, '_m_uv_index') else None
+            return getattr(self, '_m_uv_index', None)
 
 
     class BthomeBinaryProblem(KaitaiStruct):
@@ -1547,18 +1561,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def voltage(self):
             if hasattr(self, '_m_voltage'):
-                return self._m_voltage if hasattr(self, '_m_voltage') else None
+                return self._m_voltage
 
             self._m_voltage = (self.value * 0.1)
-            return self._m_voltage if hasattr(self, '_m_voltage') else None
+            return getattr(self, '_m_voltage', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"V"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorRotation01(KaitaiStruct):
@@ -1574,18 +1588,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def rotation(self):
             if hasattr(self, '_m_rotation'):
-                return self._m_rotation if hasattr(self, '_m_rotation') else None
+                return self._m_rotation
 
             self._m_rotation = (self.value * 0.1)
-            return self._m_rotation if hasattr(self, '_m_rotation') else None
+            return getattr(self, '_m_rotation', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"\260"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryGas(KaitaiStruct):
@@ -1612,18 +1626,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def gyroscope(self):
             if hasattr(self, '_m_gyroscope'):
-                return self._m_gyroscope if hasattr(self, '_m_gyroscope') else None
+                return self._m_gyroscope
 
             self._m_gyroscope = (self.value * 0.001)
-            return self._m_gyroscope if hasattr(self, '_m_gyroscope') else None
+            return getattr(self, '_m_gyroscope', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"\260/s"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeSensorDuration0001(KaitaiStruct):
@@ -1639,18 +1653,18 @@ class BthomeServiceData(KaitaiStruct):
         @property
         def duration(self):
             if hasattr(self, '_m_duration'):
-                return self._m_duration if hasattr(self, '_m_duration') else None
+                return self._m_duration
 
             self._m_duration = (self.value.value * 0.001)
-            return self._m_duration if hasattr(self, '_m_duration') else None
+            return getattr(self, '_m_duration', None)
 
         @property
         def unit(self):
             if hasattr(self, '_m_unit'):
-                return self._m_unit if hasattr(self, '_m_unit') else None
+                return self._m_unit
 
             self._m_unit = u"s"
-            return self._m_unit if hasattr(self, '_m_unit') else None
+            return getattr(self, '_m_unit', None)
 
 
     class BthomeBinaryGenericBoolean(KaitaiStruct):

@@ -366,6 +366,12 @@ def test_bthome_gyroscope(bthome_data):
     assert bthome_data.measurement[0].data.unit == "°/s"
 
 
+@pytest.mark.parametrize("filename", ["data/bthome_text.bin"])
+def test_bthome_text(bthome_data):
+    """Test BTHome parser for text."""
+    assert bthome_data.measurement[0].data.value == "Hello World!"
+
+
 @pytest.mark.parametrize("filename", ["data/bthome_double_temperature.bin"])
 def test_bthome_double_temperature(bthome_data):
     """Test BTHome parser for double temperature reading without encryption."""
