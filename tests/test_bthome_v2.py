@@ -378,6 +378,13 @@ def test_bthome_raw(bthome_data):
     assert bthome_data.measurement[0].data.value == b"\x48\x65\x6C\x6C\x6F\x20\x57\x6F\x72\x6C\x64\x21"
 
 
+@pytest.mark.parametrize("filename", ["data/bthome_volume_storage.bin"])
+def test_bthome_volume_storage(bthome_data):
+    """Test BTHome parser for volume storage in liters."""
+    assert round(bthome_data.measurement[0].data.volume_storage, 3) == 19551.879
+    assert bthome_data.measurement[0].data.unit == "L"
+
+
 @pytest.mark.parametrize("filename", ["data/bthome_double_temperature.bin"])
 def test_bthome_double_temperature(bthome_data):
     """Test BTHome parser for double temperature reading without encryption."""

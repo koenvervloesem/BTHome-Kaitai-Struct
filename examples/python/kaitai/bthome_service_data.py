@@ -90,6 +90,7 @@ class BthomeServiceData(KaitaiStruct):
         sensor_gyroscope = 82
         sensor_text = 83
         sensor_raw = 84
+        sensor_volume_storage = 85
 
     class ButtonEventType(Enum):
         none = 0
@@ -674,6 +675,33 @@ class BthomeServiceData(KaitaiStruct):
             return getattr(self, '_m_unit', None)
 
 
+    class BthomeSensorVolumeStorage(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.value = self._io.read_u4le()
+
+        @property
+        def volume_storage(self):
+            if hasattr(self, '_m_volume_storage'):
+                return self._m_volume_storage
+
+            self._m_volume_storage = (self.value * 0.001)
+            return getattr(self, '_m_volume_storage', None)
+
+        @property
+        def unit(self):
+            if hasattr(self, '_m_unit'):
+                return self._m_unit
+
+            self._m_unit = u"L"
+            return getattr(self, '_m_unit', None)
+
+
     class BthomeSensorDistanceMm(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
@@ -1098,6 +1126,8 @@ class BthomeServiceData(KaitaiStruct):
                 self.data = BthomeServiceData.BthomeSensorDewpoint001(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_smoke:
                 self.data = BthomeServiceData.BthomeBinarySmoke(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.sensor_volume_storage:
+                self.data = BthomeServiceData.BthomeSensorVolumeStorage(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_co2:
                 self.data = BthomeServiceData.BthomeSensorCo2(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_sound:

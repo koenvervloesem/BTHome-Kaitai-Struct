@@ -122,6 +122,7 @@ types:
             'bthome_object_id::sensor_gyroscope': bthome_sensor_gyroscope
             'bthome_object_id::sensor_text': bthome_sensor_text
             'bthome_object_id::sensor_raw': bthome_sensor_raw
+            'bthome_object_id::sensor_volume_storage': bthome_sensor_volume_storage
             _: bthome_unknown
   bool8:
     seq:
@@ -613,6 +614,15 @@ types:
         type: u1
       - id: value
         size: len_value
+  bthome_sensor_volume_storage:
+    seq:
+      - id: value
+        type: u4
+    instances:
+      volume_storage:
+        value: value * 0.001
+      unit:
+        value: '"L"'
   bthome_unknown:
     doc: Data with unknown object ID are parsed as a byte array until the end
     seq:
@@ -694,6 +704,7 @@ enums:
     0x52: sensor_gyroscope
     0x53: sensor_text
     0x54: sensor_raw
+    0x55: sensor_volume_storage
   button_event_type:
     0x00: none
     0x01: press
