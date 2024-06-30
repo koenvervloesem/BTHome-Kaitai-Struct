@@ -114,6 +114,11 @@ There's a `Python test script <https://github.com/koenvervloesem/BTHome-Kaitai-S
 
 All tests should pass.
 
+Projects using this BTHome format description
+=============================================
+
+* [BTHome Bluetooth Binding for openHAB](https://github.com/seime/openhab-bthome?tab=readme-ov-file)
+
 Learn more about Bluetooth Low Energy development
 =================================================
 
