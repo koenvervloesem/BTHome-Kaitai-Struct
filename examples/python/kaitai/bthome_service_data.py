@@ -100,6 +100,7 @@ class BthomeServiceData(KaitaiStruct):
         long_press = 4
         long_double_press = 5
         long_triple_press = 6
+        hold_press = 128
 
     class DimmerEventType(Enum):
         none = 0

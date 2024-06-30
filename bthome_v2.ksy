@@ -713,6 +713,7 @@ enums:
     0x04: long_press
     0x05: long_double_press
     0x06: long_triple_press
+    0x80: hold_press
   dimmer_event_type:
     0x00: none
     0x01: rotate_left

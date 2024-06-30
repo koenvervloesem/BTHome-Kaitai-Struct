@@ -213,6 +213,15 @@ def test_bthome_event_triple_button_device(bthome_data):
     )
 
 
+@pytest.mark.parametrize("filename", ["data/bthome_event_button_hold_press.bin"])
+def test_bthome_event_button_hold_press(bthome_data):
+    """Test BTHome parser for an event of a hold press on a button without encryption."""
+    assert (
+        bthome_data.measurement[0].data.event
+        == BthomeServiceData.ButtonEventType.hold_press
+    )
+
+
 @pytest.mark.parametrize(
     "filename", ["data/bthome_event_dimmer_rotate_left_3_steps.bin"]
 )
