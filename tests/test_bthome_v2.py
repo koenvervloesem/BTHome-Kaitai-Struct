@@ -234,6 +234,18 @@ def test_bthome_event_dimmer_rotate_left_3_steps(bthome_data):
     assert bthome_data.measurement[0].data.steps == 3
 
 
+@pytest.mark.parametrize(
+    "filename", ["data/bthome_event_dimmer_none.bin"]
+)
+def test_bthome_event_dimmer_none(bthome_data):
+    """Test BTHome parser for an event None for a dimmer."""
+    assert (
+        bthome_data.measurement[0].data.event
+        == BthomeServiceData.DimmerEventType.none
+    )
+    assert bthome_data.measurement[0].data.steps == 0
+
+
 @pytest.mark.parametrize("filename", ["data/bthome_rotation.bin"])
 def test_bthome_rotation(bthome_data):
     """Test BTHome parser for rotation."""

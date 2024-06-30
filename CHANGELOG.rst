@@ -5,7 +5,10 @@ Changelog
 Version 3.9.3 (2024-06-30)
 ==========================
 
-Compatible with bthome-ble 3.9.3. Adds text sensor, raw sensor, volume storage, device type ID, and firmware version (4 bytes and 3 bytes).
+Compatible with bthome-ble 3.9.3.
+
+- Adds text sensor, raw sensor, volume storage, device type ID, and firmware version (4 bytes and 3 bytes).
+- Fixes None event for dimmer (See https://github.com/Bluetooth-Devices/bthome-ble/issues/84)
 
 Version 2.11.3 (2023-05-25)
 ===========================

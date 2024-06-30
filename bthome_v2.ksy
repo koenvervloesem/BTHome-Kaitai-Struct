@@ -425,7 +425,6 @@ types:
         enum: dimmer_event_type
       - id: steps
         type: u1
-        if: event == dimmer_event_type::rotate_left or event == dimmer_event_type::rotate_right
   bthome_sensor_count_uint16:
     seq:
       - id: count

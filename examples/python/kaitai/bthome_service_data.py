@@ -398,9 +398,7 @@ class BthomeServiceData(KaitaiStruct):
 
         def _read(self):
             self.event = KaitaiStream.resolve_enum(BthomeServiceData.DimmerEventType, self._io.read_u1())
-            if  ((self.event == BthomeServiceData.DimmerEventType.rotate_left) or (self.event == BthomeServiceData.DimmerEventType.rotate_right)) :
-                self.steps = self._io.read_u1()
-
+            self.steps = self._io.read_u1()
 
 
     class BthomeDeviceType(KaitaiStruct):
