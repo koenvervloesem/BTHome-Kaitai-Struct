@@ -117,7 +117,7 @@ All tests should pass.
 Projects using this BTHome format description
 =============================================
 
-* `BTHome Bluetooth Binding for openHAB <https://github.com/seime/openhab-bthome?tab=readme-ov-file>`_`
+* `BTHome Bluetooth Binding for openHAB <https://github.com/seime/openhab-bthome?tab=readme-ov-file>`_
 
 Learn more about Bluetooth Low Energy development
 =================================================
