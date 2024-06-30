@@ -89,6 +89,7 @@ class BthomeServiceData(KaitaiStruct):
         sensor_acceleration = 81
         sensor_gyroscope = 82
         sensor_text = 83
+        sensor_raw = 84
 
     class ButtonEventType(Enum):
         none = 0
@@ -998,6 +999,18 @@ class BthomeServiceData(KaitaiStruct):
             return getattr(self, '_m_unit', None)
 
 
+    class BthomeSensorRaw(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.len_value = self._io.read_u1()
+            self.value = self._io.read_bytes(self.len_value)
+
+
     class BthomeSensorDewpoint001(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
@@ -1125,6 +1138,8 @@ class BthomeServiceData(KaitaiStruct):
                 self.data = BthomeServiceData.BthomeBinaryConnectivity(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_problem:
                 self.data = BthomeServiceData.BthomeBinaryProblem(self._io, self, self._root)
+            elif _on == BthomeServiceData.BthomeObjectId.sensor_raw:
+                self.data = BthomeServiceData.BthomeSensorRaw(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.sensor_distance_m_0_1:
                 self.data = BthomeServiceData.BthomeSensorDistanceM01(self._io, self, self._root)
             elif _on == BthomeServiceData.BthomeObjectId.binary_running:
@@ -1400,8 +1415,8 @@ class BthomeServiceData(KaitaiStruct):
             self._read()
 
         def _read(self):
-            self.len = self._io.read_u1()
-            self.value = (self._io.read_bytes(self.len)).decode(u"UTF-8")
+            self.len_value = self._io.read_u1()
+            self.value = (self._io.read_bytes(self.len_value)).decode(u"UTF-8")
 
 
     class BthomeBinaryLight(KaitaiStruct):

@@ -121,6 +121,7 @@ types:
             'bthome_object_id::sensor_acceleration': bthome_sensor_acceleration
             'bthome_object_id::sensor_gyroscope': bthome_sensor_gyroscope
             'bthome_object_id::sensor_text': bthome_sensor_text
+            'bthome_object_id::sensor_raw': bthome_sensor_raw
             _: bthome_unknown
   bool8:
     seq:
@@ -600,12 +601,18 @@ types:
         value: '"\u00B0/s"'
   bthome_sensor_text:
     seq:
-      - id: len
+      - id: len_value
         type: u1
       - id: value
         type: str
-        size: len
+        size: len_value
         encoding: UTF-8
+  bthome_sensor_raw:
+    seq:
+      - id: len_value
+        type: u1
+      - id: value
+        size: len_value
   bthome_unknown:
     doc: Data with unknown object ID are parsed as a byte array until the end
     seq:
@@ -686,6 +693,7 @@ enums:
     0x51: sensor_acceleration
     0x52: sensor_gyroscope
     0x53: sensor_text
+    0x54: sensor_raw
   button_event_type:
     0x00: none
     0x01: press
